@@ -1,0 +1,5 @@
+package com.edgar.school.models;
+
+public class School {
+
+}
