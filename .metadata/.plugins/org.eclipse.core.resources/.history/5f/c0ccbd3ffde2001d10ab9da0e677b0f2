@@ -1,0 +1,5 @@
+package com.edgar.student.controllers;
+
+public class StudentController {
+
+}

@@ -1,0 +1,5 @@
+package com.edgar.student.models;
+
+public class Student {
+
+}
