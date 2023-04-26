@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.edgar.school.models.FullSchoolRepsonse;
 import com.edgar.school.models.School;
 import com.edgar.school.services.SchoolService;
 
@@ -28,8 +30,13 @@ public class SchoolController {
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<School>> allStudents(){
+	public ResponseEntity<List<School>> allSchools(){
 		return ResponseEntity.ok(schoolService.findAllSchools());
+	}
+	
+	@GetMapping("/with-students/{schoolId}")
+	public ResponseEntity<FullSchoolRepsonse> allSchoolsWithStudents(@PathVariable long schoolId){
+		return ResponseEntity.ok(schoolService.findAllSchoolsWithStudents(schoolId));
 	}
 
 }

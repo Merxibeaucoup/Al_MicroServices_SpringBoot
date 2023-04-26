@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.edgar.school.client.StudentClient;
+import com.edgar.school.models.FullSchoolRepsonse;
 import com.edgar.school.models.School;
 import com.edgar.school.repositories.SchoolRepository;
 
@@ -15,6 +17,8 @@ public class SchoolService {
 	
 	private final SchoolRepository schoolRepository;
 	
+	private  StudentClient client;
+	
 	/* save a student */
 	public School newSchool(School school) {
 		return schoolRepository.save(school);
@@ -23,6 +27,25 @@ public class SchoolService {
 	/* find all students */
 	public List<School> findAllSchools(){
 		return schoolRepository.findAll();
+	}
+
+	public FullSchoolRepsonse findAllSchoolsWithStudents(Long schooId) {
+		
+		School school = schoolRepository.findById(schooId)
+				.orElse(
+						School.builder()
+						.name("NOT_FOUND")
+						.email("NOT_FOUND")
+						.build()
+						);
+		
+		var students = client.allStudents(schooId);
+		
+		return FullSchoolRepsonse.builder()
+				.name(school.getName())
+				.email(school.getEmail())
+				.students(students)
+				.build();
 	}
 
 }
